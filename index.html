@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="./assets/Bitmap.png" alt="bitmap">
+        <div class="navbar"></div>
+        <span class="close">
+            <img src="./assets/close.png" alt="close">
+        </span>
+        <span class="live">
+            <p class="heading1">Live</p>
+        </span>
+
+        <div class="location">
+            <img src="./assets/Group 2.png" alt="location">
+        </div>
+
+        <div class="city" id="city">
+            <h1 class="heading3">New York, <br> United States</h1>
+        </div>
+        
+    </div>
+    <div>
+        <h2>Click on the city to see weather details</h2>
+    </div>
+
+    <script>
+        // Get the city element
+        const cityElement = document.getElementById('city');
+
+        // Add click event listener to the city element
+        cityElement.addEventListener('click', function() {
+            // Redirect to the weather_details.html page
+            window.location.href = 'weather_details.html';
+        });
+    </script>
+</body>
+</html>

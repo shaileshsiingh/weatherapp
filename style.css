@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    font-family: Abhaya Libre;
+
+
+}
+
+.container {
+    width: 175px;
+    height: 812px;
+    top: -30px;
+    left: 500px;
+    background: rgba(255, 255, 255, 0.9); 
+    position: absolute;
+}
+
+.navbar {
+    width: 375px;
+    height: 44px;
+}
+
+.close {
+    width: 20px;
+    height: 20px;
+    top: 58px;
+    left: 30px;
+    position: absolute;
+}
+
+.live {
+    width: 53px;
+    height: 28px;
+    top: 54px;
+    left: 292px;
+    background-color: rgb(240, 72, 72);
+    position: absolute;
+    border-radius: 5px;
+}
+
+.location {
+    width: 187px;
+    height: 40px;
+    top: 210px;
+    left: 45px;
+    position: absolute;
+    font-size: xx-small;
+    display: inline;
+    background-color: steelblues;
+    
+}
+
+.location img {
+    float: left; 
+    margin-right: 5px; 
+}
+
+.heading {
+    color: #FFFFFF;
+}
+
+.heading1 {
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.heading3 {
+    color: #FFFFFF;
+    font-size: xx-large;
+    font-family: Abhaya Libre;
+    font-weight: 700;
+    line-height: 60px;
+    letter-spacing: 0.44999998807907104px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.city {
+    width: 256px;
+    height: 120px;
+    top: 260px;
+    left: 30px;
+    position: absolute;
+}
+
+
+/* Add this CSS to your existing stylesheet */
+
+a {
+    color: #360a3b; /* Adjust the link color */
+    text-decoration: underline; /* Add underline to indicate it's clickable */
+    cursor: pointer;
+}
+
+a:hover {
+    color: #333; /* Adjust the link color on hover */
+}
+
+
+/* Add this code to your existing CSS file */
+
+body {
+    margin: 0;
+    font-family: Abhaya Libre;
+}
+
+.sidebar {
+    width: 20px;
+    height: 100%;
+    background-color: #333; /* Sidebar background color */
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.upper-line {
+    width: 100%;
+    height: 60%;
+    background-color: #fff; /* Upper line color */
+}
+
+.lower-line {
+    width: 100%;
+    height: 40%;
+    background-color: #aaa; /* Lower line color */
+}
+
+.content {
+    margin-left: 20px; /* Adjust the margin to accommodate the sidebar width */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20%; /* Adjust the top margin */
+}
+
+.search-icon {
+    /* Add styles for your search icon here */
+}
+
+.city-details {
+    text-align: left;
+}
+
+.city-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px; /* Add curved edges */
+    overflow: hidden;
+    /* Add styles for your city image here */
+}

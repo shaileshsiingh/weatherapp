@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Details</title>
+    <link rel="stylesheet" href="style2.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #myChart {
+            width: 100%;
+            height: 200px;
+            opacity: 0.7;
+            background-color: transparent;
+            border-radius: 10px;
+            position: absolute;
+            animation: floaty 5s infinite ease-in-out;
+            top: 611px;
+            left: 2px;
+        }
+
+        @keyframes floaty {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .chart-labels {
+            display: none;
+        }
+
+        .chartjs-tooltip {
+            opacity: 0;
+        }
+
+        #searchInput {
+            position: absolute;
+            top: 20px;
+            right: 50px;
+            display: none;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .close-btn {
+            cursor: pointer;
+        }
+
+        .suggestions {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar"></div>
+        <span class="sidebar">
+            
+        </span>
+        <span class="search" onclick="openSearchInput()">
+            <img src="./assets/real-estate-search-house.png" alt="search">
+        </span>
+
+        <div class="city-details">
+            <div class="heading">
+                <h2 class="subHeading" id="subHeading">New York, United States</h2>
+                <span class="date" id="date"></span><br>
+                <div class="wther-info">
+                    <span class="wther" id="temperature"></span>
+                </div>
+            </div>
+            <div class="city-image">
+                <img src="./assets/Bitmap.png" alt="city-image">
+                <span class="live">
+                    <p class="heading1">Live</p>
+                </span>
+            </div>
+        </div>
+        <div class="wther-layout">
+            <div class="rectangle">
+                <!-- Example for the first date with current time -->
+                <div class="date-info">
+                    <div class="time" id="currentTime"></div>
+                    <img src="./assets/Path.png" alt="cloud-image">
+                    <span class="time" id="temperature-layout"></span>
+                </div>
+
+                <!-- Add more date-info elements for additional dates -->
+                <div class="date-info">
+                    <div class="time" id="time1"></div>
+                    <img src="./assets/Path.png" alt="cloud-image">
+                    <span class="time" id="temperature-layout1"></span>
+                </div>
+
+                <div class="date-info">
+                    <div class="time" id="time2"></div>
+                    <img src="./assets/Path.png" alt="cloud-image">
+                    <span class="time" id="temperature-layout2"></span>
+                </div>
+
+                <div class="date-info">
+                    <div class="time" id="time3"></div>
+                    <img src="./assets/Path.png" alt="cloud-image">
+                    <span class="time" id="temperature-layout3"></span>
+                </div>
+
+                <div class="date-info">
+                    <div class="time" id="time4"></div>
+                    <img src="./assets/Path.png" alt="cloud-image">
+                    <span class="time" id="temperature-layout4"></span>
+                </div>
+            </div>
+        </div>
+        <div class="next"></div>
+        <div class="add-info">
+            <h3 class="info">Additional Info</h3>
+            <div class="info-section">
+                <div class="info-item">
+                    <div class="info-label">Precipitation</div>
+                    <div class="info-value" data-label="Precipitation" id="precipitation"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Humidity</div>
+                    <div class="info-value" data-label="Humidity" id="humidity"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Windy</div>
+                    <div class="info-value" data-label="Windy" id="windSpeed"></div>
+                </div>
+            </div>
+        </div>
+        <div class="next1"></div>
+        <div class="temp">
+            <span>Temperature</span>
+            <div class="dropdown">
+                <select onchange="updateGraph()">
+                    <option value="today">Today</option>
+                    <option value="last7days">Last 7 Days</option>
+                    <option value="thisMonth">This Month</option>
+                    <option value="lastMonth">Last Month</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Graph display below -->
+        <canvas id="myChart"></canvas>
+        <!-- Search input -->
+        <div class="search-input" id="searchInput">
+            <input type="text" id="cityInput" placeholder="Enter city name" style="padding: 7px; border: 1px solid #ccc; border-radius: 5px;" oninput="showSuggestions(this.value)">
+            <button onclick="searchCity()" style="padding: 10px; background-color: #007BFF; color: #fff; border: none; border-radius: 10px; cursor: pointer;">Search</button>
+            <span class="close-btn" onclick="closeSearchInput()">X</span>
+            <div class="suggestions" id="suggestions"></div>
+        </div>
+    </div>
+    <div>
+        <h3>Click on Search Icon to Search any city and it will <br> show the weather details, image and graph of that city.<br>The graph is floaty and can be filtered by Time</h3>
+    </div>
+    <script>
+        const apiKey = 'c2286ad408144f80bb0112802241003';
+
+        // Your JavaScript code to update time and temperature
+        function updateCurrentTime() {
+            const currentTimeElement = document.getElementById('currentTime');
+            const currentDate = new Date();
+            const hours = currentDate.getHours();
+            const minutes = currentDate.getMinutes();
+            const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+            currentTimeElement.textContent = formattedTime;
+
+            // Schedule the function to update every minute
+            setTimeout(updateCurrentTime, 60000 - (currentDate.getSeconds() * 1000) - currentDate.getMilliseconds());
+        }
+
+        // Update the current time initially
+        updateCurrentTime();
+
+        // Update the other times
+        for (let i = 1; i <= 4; i++) {
+            const timeElement = document.getElementById(`time${i}`);
+            const currentTime = new Date();
+            currentTime.setHours(currentTime.getHours() + i);
+            const hours = currentTime.getHours();
+            const minutes = currentTime.getMinutes();
+            const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+            timeElement.textContent = formattedTime;
+        }
+
+        async function getWeatherData(city) {
+            const apiUrl = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                console.log(data);
+
+                // Update your HTML with the fetched weather data
+                updateWeatherInfo(data);
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+            }
+        }
+
+        function updateWeatherInfo(data) {
+            const currentWeather = data.current;
+
+            // Update subheading with the searched city name
+            const cityName = data.location.name;
+            document.querySelector('.subHeading').textContent = `${cityName}, ${data.location.country}`;
+
+            document.getElementById('date').textContent = new Date().toLocaleString('en-US', { dateStyle: 'long' });
+            document.getElementById('temperature').textContent = currentWeather.temp_c + '°C';
+            document.getElementById('temperature-layout').textContent = currentWeather.temp_c + '°C';
+            document.getElementById('temperature-layout1').textContent = currentWeather.temp_c + '°C';
+            document.getElementById('temperature-layout2').textContent = currentWeather.temp_c + '°C';
+            document.getElementById('temperature-layout3').textContent = currentWeather.temp_c + '°C';
+            document.getElementById('temperature-layout4').textContent = currentWeather.temp_c + '°C';
+
+            document.getElementById('precipitation').textContent = currentWeather.precip_mm + ' mm/h';
+            document.getElementById('humidity').textContent = currentWeather.humidity + '%';
+            document.getElementById('windSpeed').textContent = currentWeather.wind_kph + ' km/h';
+
+            // You can continue updating other HTML elements similarly
+            document.getElementById('searchInput').style.display = 'none';
+        }
+
+        function openSearchInput() {
+            document.getElementById('searchInput').style.display = 'flex';
+            document.getElementById('suggestions').innerHTML = ''; // Clear suggestions
+        }
+
+        function closeSearchInput() {
+            document.getElementById('searchInput').style.display = 'none';
+            document.getElementById('cityInput').value = ''; // Clear input
+            document.getElementById('suggestions').innerHTML = ''; // Clear suggestions
+        }
+
+        function searchCity() {
+            const cityName = document.getElementById('cityInput').value;
+            if (cityName) {
+                getWeatherData(cityName);
+            }
+        }
+
+        async function updateGraph() {
+    const selectedValue = document.querySelector('.dropdown select').value;
+    let city = 'New York'; // Default city
+    switch (selectedValue) {
+        case 'today':
+            city = 'New York'; // You can set the default city for today
+            break;
+        case 'last7days':
+            city = 'London'; // You can set the default city for the last 7 days
+            break;
+        case 'thisMonth':
+            city = 'Tokyo'; // You can set the default city for this month
+            break;
+        case 'lastMonth':
+            city = 'Paris'; // You can set the default city for last month
+            break;
+        default:
+            break;
+    }
+
+    updateGraphWithRealData(city);
+}
+
+async function updateGraphWithRealData(city) {
+    const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=1&aqi=no`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        const temperatures = data.forecast.forecastday[0].hour.map(hour => hour.temp_c);
+
+        // Get the canvas element and its context
+        const canvas = document.getElementById('myChart');
+        const ctx = canvas.getContext('2d');
+
+        // Check if the chart already exists, then destroy it
+        if (window.myChart instanceof Chart) {
+            window.myChart.destroy();
+        }
+
+        // Create a new chart
+        window.myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: temperatures.length }, (_, i) => ''),
+                datasets: [{
+                    label: '(°C)',
+                    data: temperatures,
+                    backgroundColor: 'orange',
+                    fill: true,
+                    pointRadius: 0,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        ticks: {
+                            suggestedMin: Math.min(...temperatures) - 2,
+                            suggestedMax: Math.max(...temperatures) + 2,
+                            display: true, // Hide y-axis labels
+                        }
+                    },
+                    x: {
+                        display: false, // Hide x-axis labels
+                        grid: {
+                            display: false, // Hide grid lines
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false, // Hide legend
+                    },
+                    tooltip: {
+                        enabled: false, // Disable tooltips
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+    }
+}
+
+async function getImageForCity(city) {
+    const unsplashApiKey = 'Z3jBx_cg4Ww-v3kxCmIKgxJc9i6LfDpGhrb-wwoqlfA';
+    const unsplashApiUrl = `https://api.unsplash.com/photos/random?query=${city}&client_id=${unsplashApiKey}`;
+
+    try {
+        const response = await fetch(unsplashApiUrl);
+        const data = await response.json();
+        return data.urls.regular;
+    } catch (error) {
+        console.error('Error fetching image:', error);
+        let defImg = ''
+        return './assets/Bitmap.png';;
+    }
+}
+async function searchCity() {
+    const cityName = document.getElementById('cityInput').value;
+    if (cityName) {
+        getWeatherData(cityName);
+        updateGraphWithRealData(cityName); // Update graph with the searched city
+        const imageUrl = await getImageForCity(cityName);
+        if (imageUrl) {
+            document.querySelector('.city-image img').src = imageUrl;
+        } else {
+            // Default image if no image found
+            document.querySelector('.city-image img').src = 'default_image_url.jpg';
+        }
+    }
+}
+
+
+
+        async function showSuggestions(query) {
+            const suggestionsContainer = document.getElementById('suggestions');
+            suggestionsContainer.innerHTML = '';
+
+            if (query.trim() !== '') {
+                const suggestions = await getCitySuggestions(query);
+                suggestions.forEach(suggestion => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.classList.add('suggestion-item');
+                    suggestionItem.textContent = `${suggestion.name}, ${suggestion.country}`;
+                    suggestionItem.onclick = () => {
+                        document.getElementById('cityInput').value = suggestion.name;
+                        getWeatherData(suggestion.name);
+                        closeSearchInput();
+                    };
+                    suggestionsContainer.appendChild(suggestionItem);
+                });
+            }
+        }
+
+        async function getCitySuggestions(query) {
+            const apiUrl = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${query}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching city suggestions:', error);
+                return [];
+            }
+        }
+
+        // Initial weather data for New York
+        updateGraphWithRealData('New York');
+        getWeatherData('New York');
+    </script>
+</body>
+</html>
