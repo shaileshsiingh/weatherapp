@@ -72,8 +72,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="navbar"></div>
-        <span class="sidebar">
+        <div class="navbar">
+            <div class="left-icons">
+                <div id="currentTime"></div> <!-- Display current time -->
+            </div>
+            <div class="right-icons">
+                <img src="./assets/iconss.jpg" alt="wifi"> <!-- Wifi icon -->
+            </div>
+        </div>        <span class="sidebar">
             
         </span>
         <span class="search" onclick="openSearchInput()">
@@ -363,14 +369,15 @@ async function searchCity() {
     const cityName = document.getElementById('cityInput').value;
     if (cityName) {
         getWeatherData(cityName);
-        updateGraphWithRealData(cityName); // Update graph with the searched city
         const imageUrl = await getImageForCity(cityName);
         if (imageUrl) {
             document.querySelector('.city-image img').src = imageUrl;
         } else {
             // Default image if no image found
-            document.querySelector('.city-image img').src = 'default_image_url.jpg';
+            document.querySelector('.city-image img').src = './assets/Bitmap.png';
         }
+        updateGraphWithRealData(cityName); // Update graph with the searched city
+        closeSearchInput();
     }
 }
 

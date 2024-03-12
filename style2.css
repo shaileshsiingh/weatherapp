@@ -18,6 +18,32 @@ body {
     height: 44px;
 }
 
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .left-icons {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+    font-size: small;
+    font-family: Abhaya Libre;
+}
+
+.navbar .right-icons {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .right-icons img {
+    width: 54px; /* Adjust icon size as needed */
+    height: 29px;
+    margin-right: 29px;
+}
+
+
 .sidebar {
     width: 18px;
 height: 8px;

@@ -19,6 +19,30 @@ body {
     height: 44px;
 }
 
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.navbar .left-icons {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .right-icons {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .right-icons img {
+    margin-left: 10px;
+    width: 24px; /* Adjust icon size as needed */
+    height: 24px;
+}
+
 .close {
     width: 20px;
     height: 20px;
