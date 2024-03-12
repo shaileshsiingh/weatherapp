@@ -116,9 +116,7 @@ left: 195px;
     width: 20.26px;
 height: 17.55px;
 border: 1.6px;
-border: 1.6px solid #057BFF;
-color:#057BFF
-
+position: absolute;
 }
 
 .weather-info{
@@ -155,10 +153,11 @@ color: #96969A;
 }
 
 .wther{
+    position: absolute;
     width: 45px;
 height: 18px;
-top: 1px;
-left: 28px;
+top: 117px;
+left: 22px;
 font-family: Abhaya Libre;
 font-size: 15px;
 font-weight: 700;
