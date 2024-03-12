@@ -38,17 +38,18 @@ body {
 }
 
 .navbar .right-icons img {
-    width: 54px; /* Adjust icon size as needed */
-    height: 29px;
+    width: 50x; /* Adjust icon size as needed */
+    height: 14px;
     margin-right: 29px;
 }
 
 
 .sidebar {
-    width: 18px;
+    position: absolute;
+    width: 17px;
 height: 8px;
-top: 62px;
-left: 43px;
+top: 41px;
+left: 26px;
 border: 2px;
 angle: -180 deg;
 border: 2px solid #003339
