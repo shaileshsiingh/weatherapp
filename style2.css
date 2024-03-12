@@ -192,13 +192,17 @@ position: absolute;
 
 }
 
+
+
+
 .date-info {
     text-align: center;
     color: #fff;
+    justify-content: space-around;
 }
 
 .time {
-    font-size: 14px;
+    font-size: 11px;
 }
 
 .date {

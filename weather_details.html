@@ -108,37 +108,38 @@
             <div class="rectangle">
                 <!-- Example for the first date with current time -->
                 <div class="date-info">
-                    <div class="time" id="currentTime1"></div>
+                    <div class="time" id="time1"></div>
                     <img src="./assets/Path.png" alt="cloud-image">
                     <span class="time" id="temperature-layout"></span>
                 </div>
-
+        
                 <!-- Add more date-info elements for additional dates -->
                 <div class="date-info">
-                    <div class="time" id="time1"></div>
+                    <div class="time" id="time2"></div>
                     <img src="./assets/weather-cloud-thunder-rain.png" alt="cloud-image">
                     <span class="time" id="temperature-layout1"></span>
                 </div>
-
+        
                 <div class="date-info">
-                    <div class="time" id="time2"></div>
+                    <div class="time" id="time3"></div>
                     <img src="./assets/weather-cloud.png" alt="cloud-image">
                     <span class="time" id="temperature-layout2"></span>
                 </div>
-
+        
                 <div class="date-info">
-                    <div class="time" id="time3"></div>
+                    <div class="time" id="time4"></div>
                     <img src="./assets/weather-sun.png" alt="cloud-image">
                     <span class="time" id="temperature-layout3"></span>
                 </div>
-
+        
                 <div class="date-info">
-                    <div class="time" id="time4"></div>
+                    <div class="time" id="time5"></div>
                     <img src="./assets/Path.png" alt="cloud-image">
                     <span class="time" id="temperature-layout4"></span>
                 </div>
             </div>
         </div>
+        
         <div class="next"></div>
         <div class="add-info">
             <h3 class="info">Additional Info</h3>
@@ -186,9 +187,14 @@
     <script>
         const apiKey = 'c2286ad408144f80bb0112802241003';
 
+
+
+        
+
         // Your JavaScript code to update time and temperature
         function updateCurrentTime() {
             const currentTimeElement = document.getElementById('currentTime');
+            
             const currentDate = new Date();
             const hours = currentDate.getHours();
             const minutes = currentDate.getMinutes();
@@ -203,7 +209,7 @@
         updateCurrentTime();
 
         // Update the other times
-        for (let i = 1; i <= 4; i++) {
+        for (let i = 1; i <= 5; i++) {
             const timeElement = document.getElementById(`time${i}`);
             const currentTime = new Date();
             currentTime.setHours(currentTime.getHours() + i);
