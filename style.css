@@ -23,13 +23,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background-color: #f0f0f0;
 }
 
 .navbar .left-icons {
     display: flex;
     align-items: center;
+    margin-left: 25px;
+    font-size: small;
+    font-family: Abhaya Libre;
 }
 
 .navbar .right-icons {
@@ -38,15 +39,15 @@ body {
 }
 
 .navbar .right-icons img {
-    margin-left: 10px;
-    width: 24px; /* Adjust icon size as needed */
-    height: 24px;
+    width: 54px; /* Adjust icon size as needed */
+    height: 29px;
+    margin-right: 29px;
 }
 
 .close {
     width: 20px;
     height: 20px;
-    top: 58px;
+    top: 86px;
     left: 30px;
     position: absolute;
 }
@@ -54,7 +55,7 @@ body {
 .live {
     width: 53px;
     height: 28px;
-    top: 54px;
+    top: 86px;
     left: 292px;
     background-color: rgb(240, 72, 72);
     position: absolute;
