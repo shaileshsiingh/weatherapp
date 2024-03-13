@@ -198,6 +198,9 @@ position: absolute;
 .date-info {
     text-align: center;
     color: #fff;
+    margin: auto;
+    justify-content: space-around;
+    height: 20mm;
     
 }
 
