@@ -153,10 +153,10 @@ color: #96969A;
 }
 
 .wther{
-    position: absolute;
+    margin-left: 25px;
     width: 45px;
 height: 18px;
-top: 117px;
+top: 91px;
 left: 22px;
 font-family: Abhaya Libre;
 font-size: 15px;
@@ -198,7 +198,7 @@ position: absolute;
 .date-info {
     text-align: center;
     color: #fff;
-    justify-content: space-around;
+    
 }
 
 .time {
@@ -359,4 +359,9 @@ border-radius: 10px;
     text-align: center;
     margin-top: 4px;
     font-size: x-small;
+}
+
+.combo{
+    width: 100px;
+height: 40px;
 }

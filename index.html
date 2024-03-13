@@ -42,6 +42,20 @@
     </div>
 
     <script>
+  // Your JavaScript code to update time and temperature
+  function updateCurrentTime() {
+            const currentTimeElement = document.getElementById('currentTime');
+            
+            const currentDate = new Date();
+            const hours = currentDate.getHours();
+            const minutes = currentDate.getMinutes();
+            const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+            currentTimeElement.textContent = formattedTime;
+
+            // Schedule the function to update every minute
+            setTimeout(updateCurrentTime, 60000 - (currentDate.getSeconds() * 1000) - currentDate.getMilliseconds());
+        }
+
         // Get the city element
         const cityElement = document.getElementById('city');
 
@@ -50,6 +64,8 @@
             // Redirect to the weather_details.html page
             window.location.href = 'weather_details.html';
         });
+
+
     </script>
 </body>
 </html>
