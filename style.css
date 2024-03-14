@@ -167,9 +167,6 @@ body {
     margin-top: 20%; /* Adjust the top margin */
 }
 
-.search-icon {
-    /* Add styles for your search icon here */
-}
 
 .city-details {
     text-align: left;
@@ -181,4 +178,12 @@ body {
     border-radius: 10px; /* Add curved edges */
     overflow: hidden;
     /* Add styles for your city image here */
+}
+
+.steps{
+    color: #054e1d;
+    font-size: larger;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-decoration: underline;
+
 }

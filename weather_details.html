@@ -95,7 +95,7 @@
                 <span class="date" id="date"></span><br>
                 <div class="wther-info">
                     <div class="combo">
-                    <img src="./assets//weather-clouds.png" alt="">
+                    <img id="icon">
                     <h5 class="wther" id="temperature"></h5>
                 </div>
                 </div>
@@ -112,32 +112,32 @@
                 <!-- Example for the first date with current time -->
                 <div class="date-info">
                     <div class="time" id="time1"></div>
-                    <img src="./assets/Path.png" alt="cloud-image">
+                    <img id="icon1" alt="cloud-image">
                     <span class="time" id="temperature-layout"></span>
                 </div>
         
                 <!-- Add more date-info elements for additional dates -->
                 <div class="date-info">
                     <div class="time" id="time2"></div>
-                    <img src="./assets/weather-cloud-thunder-rain.png" alt="cloud-image">
+                    <img id="icon2" alt="cloud-image">
                     <span class="time" id="temperature-layout1"></span>
                 </div>
         
                 <div class="date-info">
                     <div class="time" id="time3"></div>
-                    <img src="./assets/weather-cloud.png" alt="cloud-image">
+                    <img id="icon3" alt="cloud-image">
                     <span class="time" id="temperature-layout2"></span>
                 </div>
         
                 <div class="date-info">
                     <div class="time" id="time4"></div>
-                    <img src="./assets/weather-sun.png" alt="cloud-image">
+                    <img id="icon4" alt="cloud-image">
                     <span class="time" id="temperature-layout3"></span>
                 </div>
         
                 <div class="date-info">
                     <div class="time" id="time5"></div>
-                    <img src="./assets/Path.png" alt="cloud-image">
+                    <img id="icon5" alt="cloud-image">
                     <span class="time" id="temperature-layout4"></span>
                 </div>
             </div>
@@ -178,7 +178,7 @@
         <canvas id="myChart"></canvas>
         <!-- Search input -->
         <div class="search-input" id="searchInput">
-            <input type="text" id="cityInput" placeholder="Enter city name" style="padding: 7px; border: 1px solid #ccc; border-radius: 5px;" oninput="showSuggestions(this.value)">
+            <input type="text" id="cityInput" placeholder="Enter city name" style="padding: px; border: 1px solid #ccc; border-radius: 5px;" oninput="showSuggestions(this.value)">
             <button onclick="searchCity()" style="padding: 10px; background-color: #007BFF; color: #fff; border: none; border-radius: 10px; cursor: pointer;">Search</button>
             <span class="close-btn" onclick="closeSearchInput()">X</span>
             <div class="suggestions" id="suggestions"></div>
@@ -238,27 +238,53 @@
         }
 
         function updateWeatherInfo(data) {
-            const currentWeather = data.current;
+    const currentWeather = data.current;
 
-            // Update subheading with the searched city name
-            const cityName = data.location.name;
-            document.querySelector('.subHeading').textContent = `${cityName}, ${data.location.country}`;
+    // Update subheading with the searched city name
+    const cityName = data.location.name;
+    document.querySelector('.subHeading').textContent = `${cityName}, ${data.location.country}`;
 
-            document.getElementById('date').textContent = new Date().toLocaleString('en-US', { dateStyle: 'long' });
-            document.getElementById('temperature').textContent = currentWeather.temp_c + '°C';
-            document.getElementById('temperature-layout').textContent = currentWeather.temp_c + '°C';
-            document.getElementById('temperature-layout1').textContent = currentWeather.temp_c + '°C';
-            document.getElementById('temperature-layout2').textContent = currentWeather.temp_c + '°C';
-            document.getElementById('temperature-layout3').textContent = currentWeather.temp_c + '°C';
-            document.getElementById('temperature-layout4').textContent = currentWeather.temp_c + '°C';
+    document.getElementById('date').textContent = new Date().toLocaleString('en-US', { dateStyle: 'long' });
+document.getElementById('icon').src = currentWeather.condition.icon;
+document.getElementById('icon1').src = currentWeather.condition.icon;
 
-            document.getElementById('precipitation').textContent = currentWeather.precip_mm + ' mm/h';
-            document.getElementById('humidity').textContent = currentWeather.humidity + '%';
-            document.getElementById('windSpeed').textContent = currentWeather.wind_kph + ' km/h';
+document.getElementById('icon2').src = currentWeather.condition.icon;
+document.getElementById('icon3').src = currentWeather.condition.icon;
+document.getElementById('icon4').src = currentWeather.condition.icon;
+document.getElementById('icon5').src = currentWeather.condition.icon;
 
-            // You can continue updating other HTML elements similarly
-            document.getElementById('searchInput').style.display = 'none';
-        }
+
+    document.getElementById('temperature').textContent = currentWeather.condition.text;
+    
+    // Update the current time and temperature
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    document.getElementById('temperature-layout').textContent = currentWeather.temp_c + '°C';
+    
+    // Update subsequent temperatures based on the current hour
+    for (let i = 1; i <= 4; i++) {
+        const nextHourTemperature = getForecastTemperature(currentHour, data);
+        document.getElementById(`temperature-layout${i}`).textContent = nextHourTemperature + '°C';
+    }
+
+    document.getElementById('precipitation').textContent = currentWeather.precip_mm + ' mm/h';
+    document.getElementById('humidity').textContent = currentWeather.humidity + '%';
+    document.getElementById('windSpeed').textContent = currentWeather.wind_kph + ' km/h';
+
+    // Hide the search input
+    document.getElementById('searchInput').style.display = 'none';
+}
+
+function getForecastTemperature(hour, data) {
+    // Get the forecast for the specified hour
+    const forecast = data.forecast.forecastday[0].hour.find(item => {
+        return new Date(item.time).getHours() === hour;
+    });
+console.log(forecast)
+    // If forecast is available, return the temperature, otherwise return N/A
+    return forecast ? forecast.temp_c : 'N/A';
+}
+
 
         function openSearchInput() {
             document.getElementById('searchInput').style.display = 'flex';

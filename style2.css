@@ -113,10 +113,12 @@ left: 195px;
 }
 
 .wther-info img{
-    width: 20.26px;
-height: 17.55px;
+    width: 46.26px;
+height: 45.55px;
 border: 1.6px;
 position: absolute;
+top: 20pxpx;
+left: -4px;
 }
 
 .weather-info{
@@ -153,11 +155,12 @@ color: #96969A;
 }
 
 .wther{
+    position: absolute;
     margin-left: 25px;
     width: 45px;
 height: 18px;
-top: 91px;
-left: 22px;
+top: 0px;
+left: 9px;
 font-family: Abhaya Libre;
 font-size: 15px;
 font-weight: 700;
@@ -192,15 +195,16 @@ position: absolute;
 
 }
 
-
+.steps{
+    color: #360a3b;
+}
 
 
 .date-info {
     text-align: center;
     color: #fff;
-    margin: auto;
-    justify-content: space-around;
-    height: 20mm;
+    margin: -10px;
+    justify-content: space-evenly;
     
 }
 
@@ -338,7 +342,7 @@ position: relative;
 }
 
 .time {
-    margin-bottom: 5px;
+    margin-bottom: -2px;
 }
 
 .wther {
@@ -365,6 +369,31 @@ border-radius: 10px;
 }
 
 .combo{
-    width: 100px;
-height: 40px;
+    width: 113px;
+height: 70px;
+position: absolute;
+top: 52px;
+left: -6px;
+}
+
+.city-details {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.date {
+    margin-right: auto; /* Pushes the date to the left */
+}
+
+.combo {
+    display: flex;
+    align-items: center;
+    gap: 1px; /* Adjust this value for spacing between icon and temperature */
+    margin-top: 41px;
+}
+
+.wther-info {
+    margin-top: 10px; /* Adjust this value for spacing between subHeading and combo */
 }
