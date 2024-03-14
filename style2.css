@@ -45,6 +45,7 @@ body {
 
 
 .sidebar {
+    cursor: pointer;
     position: absolute;
     width: 17px;
 height: 8px;
@@ -82,7 +83,7 @@ height: 58px;
 
     font-family: Abhaya Libre;
 font-size: 15px;
-font-weight: 700;
+font-weight: 400;
 line-height: 29px;
 letter-spacing: 0.25px;
 text-align:start;
