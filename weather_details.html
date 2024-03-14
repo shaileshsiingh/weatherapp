@@ -50,26 +50,7 @@
 
         }
 
-        .suggestions {
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            max-height: 150px;
-            overflow-y: auto;
-            display: none;
-        }
-
-        .suggestion-item {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .suggestion-item:hover {
-            background-color: #f0f0f0;
-        }
+        
     </style>
 </head>
 <body>
@@ -81,10 +62,12 @@
             <div class="right-icons">
                 <img src="./assets/iconss.jpg" alt="wifi"> <!-- Wifi icon -->
             </div>
-        </div>        <span class="sidebar">
+        </div>   
+             <span id="sidebar">
             <img src="./assets/setting-slider-horizontal copy.png" alt="">
             
         </span>
+        
         <span class="search" onclick="openSearchInput()">
             <img src="./assets/real-estate-search-house.png" alt="search">
         </span>
@@ -181,7 +164,6 @@
             <input type="text" id="cityInput" placeholder="Enter city name" style="padding: 7px; border: 1px solid #ccc; border-radius: 5px;" oninput="showSuggestions(this.value)">
             <button onclick="searchCity()" style="padding: 10px; background-color: #007BFF; color: #fff; border: none; border-radius: 10px; cursor: pointer;">Search</button>
             <span class="close-btn" onclick="closeSearchInput()">X</span>
-            <div class="suggestions" id="suggestions"></div>
         </div>
     </div>
     <div>
@@ -402,40 +384,9 @@ async function searchCity() {
 }
 
 
-
-        async function showSuggestions(query) {
-            const suggestionsContainer = document.getElementById('suggestions');
-            suggestionsContainer.innerHTML = '';
-
-            if (query.trim() !== '') {
-                const suggestions = await getCitySuggestions(query);
-                suggestions.forEach(suggestion => {
-                    const suggestionItem = document.createElement('div');
-                    suggestionItem.classList.add('suggestion-item');
-                    suggestionItem.textContent = `${suggestion.name}, ${suggestion.country}`;
-                    suggestionItem.onclick = () => {
-                        document.getElementById('cityInput').value = suggestion.name;
-                        getWeatherData(suggestion.name);
-                        closeSearchInput();
-                    };
-                    suggestionsContainer.appendChild(suggestionItem);
-                });
-            }
-        }
-
-        async function getCitySuggestions(query) {
-            const apiUrl = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${query}`;
-
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('Error fetching city suggestions:', error);
-                return [];
-            }
-        }
-
+document.getElementById('sidebar').onclick=()=>{
+    window.location.href = 'index.html'
+}
         // Initial weather data for New York
         updateGraphWithRealData('New York');
         getWeatherData('New York');

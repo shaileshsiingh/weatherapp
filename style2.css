@@ -44,13 +44,13 @@ body {
 }
 
 
-.sidebar {
+#sidebar {
     cursor: pointer;
     position: absolute;
     width: 17px;
 height: 8px;
 top: 41px;
-left: 26px;
+left: 25px;
 border: 2px;
 angle: -180 deg;
 border: 2px solid #003339
@@ -398,3 +398,4 @@ left: -6px;
 .wther-info {
     margin-top: 10px; /* Adjust this value for spacing between subHeading and combo */
 }
+
